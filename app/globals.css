@@ -1,26 +1,222 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-900: #06162c;
+  --bg-800: #0a2447;
+  --bg-700: #0e2d5e;
+  --blue-600: #1d5bff;
+  --blue-500: #2b7bff;
+  --blue-400: #56a0ff;
+  --cyan-300: #77d3ff;
+  --mist-100: #e9f3ff;
+  --ink-900: #0b1324;
+  --text-100: #f5f9ff;
+  --text-300: #cfe3ff;
+  --line-600: rgba(137, 181, 255, 0.35);
+  --shadow-blue: 0 30px 80px rgba(17, 77, 255, 0.35);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: radial-gradient(1200px 800px at 80% -10%, rgba(86, 160, 255, 0.35), transparent 60%),
+    radial-gradient(900px 600px at -10% 20%, rgba(119, 211, 255, 0.28), transparent 55%),
+    linear-gradient(160deg, var(--bg-900), var(--bg-800) 45%, var(--bg-700));
+  color: var(--text-100);
+  font-family: "Manrope", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.landing {
+  min-height: 100vh;
+  padding: 40px 24px 80px;
+  display: flex;
+  flex-direction: column;
+}
+
+.shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  flex: 1;
+  width: 100%;
+  position: relative;
+  min-height: 100vh;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.logo-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: linear-gradient(140deg, var(--blue-500), var(--cyan-300));
+  box-shadow: var(--shadow-blue);
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+  color: var(--text-300);
+}
+
+.nav-cta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn {
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 600;
+  font-size: 14px;
+  border: 1px solid transparent;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(140deg, var(--blue-500), var(--blue-600));
+  color: #ffffff;
+  box-shadow: var(--shadow-blue);
+}
+
+.btn-secondary {
+  border-color: var(--line-600);
+  color: var(--text-100);
+  background: rgba(5, 14, 30, 0.4);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 100vh;
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  max-width: 720px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--line-600);
+  border-radius: 999px;
+  padding: 6px 14px;
+  width: fit-content;
+  background: rgba(8, 20, 40, 0.7);
+  color: var(--text-300);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+.hero h1 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(3rem, 6vw, 5.2rem);
+  line-height: 1.05;
+  margin: 0;
+  text-align: center;
+}
+
+.hero p {
+  font-size: 1.05rem;
+  color: var(--text-300);
+  margin: 0;
+  text-align: center;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+
+.center-message {
+  border-radius: 26px;
+  border: 1px solid rgba(120, 170, 255, 0.35);
+  background: radial-gradient(220px 200px at 50% 10%, rgba(86, 160, 255, 0.3), transparent 70%),
+    rgba(4, 11, 26, 0.7);
+  padding: 56px 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  box-shadow: 0 24px 60px rgba(10, 50, 140, 0.35);
+  width: min(720px, 100%);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  color: var(--text-300);
+  font-size: 13px;
+}
+
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .nav-cta {
+    width: 100%;
+    justify-content: flex-end;
+  }
 }
