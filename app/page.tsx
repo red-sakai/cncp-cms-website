@@ -164,7 +164,7 @@ export default function Home() {
               </div>
               <div className="nav-cta">
                 <button className="btn btn-secondary" type="button">
-                  Sign in
+                  Find Your ID
                 </button>
                 <button className="btn btn-primary" type="button">
                   Join Now
