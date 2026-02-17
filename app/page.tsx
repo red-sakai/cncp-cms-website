@@ -6,6 +6,7 @@ import Lenis from "lenis";
 import { useEffect, useState } from "react";
 import Hero from "./components/section/Hero";
 import AboutUs from "./components/section/AboutUs";
+import MissionVision from "./components/section/MissionVision";
 
 const EXTEND_INDICES = [1, 2, 3, 5, 6, 7];
 const DOT_LEVELS = [
@@ -151,9 +152,27 @@ export default function Home() {
                 <a className="nav-link" href="#platform">
                   Home
                 </a>
-                <a className="nav-link" href="#solutions">
-                  About Us
-                </a>
+                <div className="nav-item">
+                  <button
+                    className="nav-link nav-link-toggle"
+                    type="button"
+                    aria-haspopup="true"
+                  >
+                    About Us
+                    <span className="nav-arrow" aria-hidden="true" />
+                  </button>
+                  <div className="nav-submenu" role="menu">
+                    <a className="nav-submenu-link" href="#mission" role="menuitem">
+                      Mission &amp; Vision
+                    </a>
+                    <a className="nav-submenu-link" href="#officers" role="menuitem">
+                      Officers
+                    </a>
+                    <a className="nav-submenu-link" href="#membership" role="menuitem">
+                      Membership
+                    </a>
+                  </div>
+                </div>
                 <a className="nav-link" href="#insights">
                   Events
                 </a>
@@ -174,6 +193,7 @@ export default function Home() {
 
           <Hero />
           <AboutUs />
+          <MissionVision />
         </div>
       </main>
     </>
