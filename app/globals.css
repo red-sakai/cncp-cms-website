@@ -713,14 +713,27 @@ a {
 
 .mission-card {
   position: relative;
-  padding: 28px 28px 30px;
-  border-radius: 24px;
+  padding: 24px 24px 26px;
+  border-radius: 22px;
   border: 1px solid rgba(198, 228, 255, 0.45);
-  background: radial-gradient(260px 200px at 15% 10%, rgba(86, 160, 255, 0.28), transparent 70%),
-    linear-gradient(135deg, rgba(18, 40, 90, 0.75), rgba(7, 20, 50, 0.6));
+  background: linear-gradient(135deg, rgba(24, 52, 104, 0.68), rgba(10, 24, 54, 0.5));
   box-shadow: 0 26px 70px rgba(7, 26, 90, 0.42);
+  backdrop-filter: blur(22px) saturate(145%);
   text-align: left;
+  overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.mission-card::after {
+  content: "";
+  position: absolute;
+  inset: -20% -30% auto auto;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(closest-side, rgba(119, 211, 255, 0.4), transparent 70%);
+  opacity: 0.85;
+  transform: translate(20%, -30%);
+  pointer-events: none;
 }
 
 .mission-card:hover {
@@ -729,31 +742,45 @@ a {
   box-shadow: 0 32px 78px rgba(8, 32, 110, 0.55);
 }
 
-.mission-label {
-  display: inline-flex;
+.mission-card-head {
+  display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 12px;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.mission-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  color: #ffffff;
+  background: linear-gradient(140deg, rgba(43, 123, 255, 0.85), rgba(119, 211, 255, 0.65));
+  box-shadow: 0 12px 26px rgba(29, 91, 255, 0.35);
+  border: 1px solid rgba(198, 228, 255, 0.45);
+}
+
+.mission-label {
+  display: block;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 1.2px;
-  background: rgba(8, 20, 40, 0.7);
   color: var(--text-300);
-  border: 1px solid rgba(120, 170, 255, 0.35);
-  width: fit-content;
+  margin-bottom: 4px;
 }
 
 .mission-card h3 {
-  margin: 18px 0 12px;
-  font-size: 1.25rem;
+  margin: 0;
+  font-size: 1.2rem;
   font-family: "Space Grotesk", sans-serif;
 }
 
 .mission-card p {
   margin: 0;
   color: var(--text-300);
-  font-size: 0.98rem;
+  font-size: 0.95rem;
 }
 
 
