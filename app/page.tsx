@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Hero from "./components/section/Hero";
 import AboutUs from "./components/section/AboutUs";
 import MissionVision from "./components/section/MissionVision";
+import Officers from "./components/section/Officers";
 
 const EXTEND_INDICES = [1, 2, 3, 5, 6, 7];
 const DOT_LEVELS = [
@@ -50,6 +51,26 @@ export default function Home() {
       smoothWheel: true,
     });
 
+    const handleAnchorClick = (event: Event) => {
+      const target = event.currentTarget as HTMLAnchorElement | null;
+      const href = target?.getAttribute("href");
+
+      if (!href || !href.startsWith("#")) {
+        return;
+      }
+
+      const section = document.querySelector(href);
+      if (!section) {
+        return;
+      }
+
+      event.preventDefault();
+      lenis.scrollTo(section, { offset: -80 });
+    };
+
+    const anchors = Array.from(document.querySelectorAll('a[href^="#"]'));
+    anchors.forEach((anchor) => anchor.addEventListener("click", handleAnchorClick));
+
     let rafId = 0;
     const raf = (time: number) => {
       lenis.raf(time);
@@ -59,6 +80,7 @@ export default function Home() {
     rafId = window.requestAnimationFrame(raf);
 
     return () => {
+      anchors.forEach((anchor) => anchor.removeEventListener("click", handleAnchorClick));
       if (rafId) {
         window.cancelAnimationFrame(rafId);
       }
@@ -194,6 +216,7 @@ export default function Home() {
           <Hero />
           <AboutUs />
           <MissionVision />
+          <Officers />
         </div>
       </main>
     </>
