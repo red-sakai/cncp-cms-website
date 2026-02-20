@@ -1,3 +1,5 @@
+import Button from "../ui/Button";
+
 export default function Hero() {
   return (
     <section className="hero" id="platform">
@@ -14,12 +16,8 @@ export default function Hero() {
             network and IT professionals through learning, collaboration, and innovation.
           </p>
           <div className="hero-actions">
-            <button className="btn btn-primary" type="button">
-              Learn More
-            </button>
-            <button className="btn btn-secondary" type="button">
-              Contact Us
-            </button>
+            <Button>Learn More</Button>
+            <Button variant="secondary">Contact Us</Button>
           </div>
         </div>
       </div>

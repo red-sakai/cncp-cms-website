@@ -8,6 +8,7 @@ import Hero from "./components/section/Hero";
 import AboutUs from "./components/section/AboutUs";
 import MissionVision from "./components/section/MissionVision";
 import Officers from "./components/section/Officers";
+import Button from "./components/ui/Button";
 
 const EXTEND_INDICES = [1, 2, 3, 5, 6, 7];
 const DOT_LEVELS = [
@@ -59,7 +60,7 @@ export default function Home() {
         return;
       }
 
-      const section = document.querySelector(href);
+      const section = document.querySelector<HTMLElement>(href);
       if (!section) {
         return;
       }
@@ -203,12 +204,8 @@ export default function Home() {
                 </a>
               </div>
               <div className="nav-cta">
-                <button className="btn btn-secondary" type="button">
-                  Find Your ID
-                </button>
-                <button className="btn btn-primary" type="button">
-                  Join Now
-                </button>
+                <Button variant="secondary">Find Your ID</Button>
+                <Button>Join Now</Button>
               </div>
             </div>
           </nav>

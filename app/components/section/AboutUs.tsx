@@ -1,6 +1,7 @@
 import { AiFillExperiment } from "react-icons/ai";
 import { LiaChalkboardTeacherSolid } from "react-icons/lia";
 import { PiPathBold } from "react-icons/pi";
+import AboutCard from "../ui/AboutCard";
 
 export default function AboutUs() {
   return (
@@ -30,42 +31,18 @@ export default function AboutUs() {
         </div>
 
         <div className="about-cards">
-          <article className="about-card">
-            <div className="about-card-head">
-              <div className="about-card-icon" aria-hidden="true">
-                <AiFillExperiment />
-              </div>
-              <h3>Hands-on Labs</h3>
-            </div>
-            <p>
-              Build confidence with guided labs, sandbox environments, and peer-led workshops
-              that turn theory into practice.
-            </p>
-          </article>
-          <article className="about-card">
-            <div className="about-card-head">
-              <div className="about-card-icon" aria-hidden="true">
-                <LiaChalkboardTeacherSolid />
-              </div>
-              <h3>Mentorship Network</h3>
-            </div>
-            <p>
-              Learn directly from alumni and industry volunteers who share practical insight,
-              feedback, and career guidance.
-            </p>
-          </article>
-          <article className="about-card">
-            <div className="about-card-head">
-              <div className="about-card-icon" aria-hidden="true">
-                <PiPathBold />
-              </div>
-              <h3>Career Pathways</h3>
-            </div>
-            <p>
-              Explore certifications, internships, and project showcases that open doors to
-              networking and IT roles.
-            </p>
-          </article>
+          <AboutCard icon={<AiFillExperiment />} title="Hands-on Labs">
+            Build confidence with guided labs, sandbox environments, and peer-led workshops
+            that turn theory into practice.
+          </AboutCard>
+          <AboutCard icon={<LiaChalkboardTeacherSolid />} title="Mentorship Network">
+            Learn directly from alumni and industry volunteers who share practical insight,
+            feedback, and career guidance.
+          </AboutCard>
+          <AboutCard icon={<PiPathBold />} title="Career Pathways">
+            Explore certifications, internships, and project showcases that open doors to
+            networking and IT roles.
+          </AboutCard>
         </div>
       </div>
     </section>

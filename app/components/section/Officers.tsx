@@ -1,3 +1,10 @@
+import OfficerCard from "../ui/OfficerCard";
+
+const OFFICER_PLACEHOLDER = {
+  name: "Officer Name",
+  description: "Short placeholder bio or highlight of responsibilities.",
+};
+
 export default function Officers() {
   return (
     <section className="officers" id="officers">
@@ -12,14 +19,12 @@ export default function Officers() {
         </div>
 
         <div className="officers-lead">
-          <article className="officer-card officer-lead">
-            <div className="officer-avatar officer-avatar-lead" aria-hidden="true" />
-            <div className="officer-details">
-              <span className="officer-role">CEO</span>
-              <h3>Officer Name</h3>
-              <p>Short placeholder bio or highlight of responsibilities.</p>
-            </div>
-          </article>
+          <OfficerCard
+            role="CEO"
+            name={OFFICER_PLACEHOLDER.name}
+            description={OFFICER_PLACEHOLDER.description}
+            isLead
+          />
         </div>
 
         <div className="officers-grid">
@@ -31,14 +36,12 @@ export default function Officers() {
             "Auditor",
             "PRO",
           ].map((role) => (
-            <article className="officer-card" key={role}>
-              <div className="officer-avatar" aria-hidden="true" />
-              <div className="officer-details">
-                <span className="officer-role">{role}</span>
-                <h3>Officer Name</h3>
-                <p>Short placeholder bio or highlight of responsibilities.</p>
-              </div>
-            </article>
+            <OfficerCard
+              key={role}
+              role={role}
+              name={OFFICER_PLACEHOLDER.name}
+              description={OFFICER_PLACEHOLDER.description}
+            />
           ))}
         </div>
       </div>
