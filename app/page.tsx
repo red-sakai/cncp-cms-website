@@ -8,6 +8,7 @@ import Hero from "./components/section/Hero";
 import AboutUs from "./components/section/AboutUs";
 import MissionVision from "./components/section/MissionVision";
 import Officers from "./components/section/Officers";
+import Membership from "./components/section/Membership";
 import Button from "./components/ui/Button";
 
 const EXTEND_INDICES = [1, 2, 3, 5, 6, 7];
@@ -214,6 +215,7 @@ export default function Home() {
           <AboutUs />
           <MissionVision />
           <Officers />
+          <Membership />
         </div>
       </main>
     </>

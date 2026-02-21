@@ -789,6 +789,193 @@ a {
   font-size: 0.95rem;
 }
 
+.membership {
+  padding: 80px 0 100px;
+}
+
+.membership-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  align-items: center;
+  text-align: center;
+}
+
+.membership-header {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+  max-width: 760px;
+}
+
+.membership-header h2 {
+  font-family: "Rajdhani", "Space Grotesk", sans-serif;
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.membership-header p {
+  color: var(--text-300);
+  margin: 0;
+}
+
+.membership-carousel {
+  width: min(1080px, 100%);
+  position: relative;
+  perspective: 1200px;
+  padding: 10px 0 42px;
+}
+
+.membership-viewport {
+  overflow: hidden;
+  scroll-snap-type: x mandatory;
+  padding: 0 56px;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+.membership-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.membership-track {
+  display: flex;
+  gap: 22px;
+  padding: 8px 0;
+  scroll-snap-type: x mandatory;
+  transform-style: preserve-3d;
+}
+
+.membership-card {
+  position: relative;
+  padding: 24px;
+  border-radius: 22px;
+  border: 1px solid rgba(198, 228, 255, 0.45);
+  background: linear-gradient(150deg, rgba(20, 46, 94, 0.7), rgba(9, 22, 50, 0.55));
+  box-shadow: 0 26px 70px rgba(7, 26, 90, 0.4);
+  backdrop-filter: blur(22px) saturate(145%);
+  text-align: left;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  flex: 0 0 clamp(240px, 32vw, 320px);
+  scroll-snap-align: center;
+  opacity: 0.65;
+  transform: translateZ(-120px) scale(0.88) rotateY(12deg);
+}
+
+.membership-card.is-active {
+  opacity: 1;
+  transform: translateZ(0) scale(1) rotateY(0deg);
+  border-color: rgba(210, 236, 255, 0.75);
+  box-shadow: 0 32px 78px rgba(8, 32, 110, 0.6);
+}
+
+.membership-card::after {
+  content: "";
+  position: absolute;
+  inset: -20% auto auto -10%;
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(closest-side, rgba(119, 211, 255, 0.35), transparent 70%);
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.membership-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(210, 236, 255, 0.7);
+  box-shadow: 0 32px 78px rgba(8, 32, 110, 0.55);
+}
+
+.membership-label {
+  display: inline-flex;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: var(--text-300);
+  margin-bottom: 10px;
+}
+
+.membership-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.15rem;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.membership-card p {
+  margin: 0;
+  color: var(--text-300);
+  font-size: 0.92rem;
+}
+
+.membership-control {
+  position: absolute;
+  top: calc(50% - 8px);
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(198, 228, 255, 0.5);
+  background: rgba(10, 24, 54, 0.85);
+  color: var(--text-100);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 12px 30px rgba(8, 32, 110, 0.35);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  z-index: 2;
+}
+
+.membership-control svg {
+  width: 20px;
+  height: 20px;
+}
+
+.membership-control-prev {
+  left: 10px;
+}
+
+.membership-control-next {
+  right: 10px;
+}
+
+.membership-control:hover {
+  transform: translateY(-50%) scale(1.05);
+  border-color: rgba(210, 236, 255, 0.75);
+  box-shadow: 0 18px 40px rgba(8, 32, 110, 0.5);
+}
+
+.membership-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.membership-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: 0;
+  background: rgba(199, 224, 255, 0.4);
+  box-shadow: 0 6px 14px rgba(18, 60, 140, 0.35);
+  pointer-events: auto;
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.25s ease, width 0.25s ease;
+}
+
+.membership-dot.is-active {
+  width: 22px;
+  background: linear-gradient(120deg, var(--cyan-300), var(--blue-500));
+  transform: scale(1.05);
+}
+
 .officers {
   padding: 80px 0 100px;
 }
@@ -945,6 +1132,26 @@ a {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .membership-card {
+    flex-basis: clamp(240px, 42vw, 320px);
+  }
+
+  .membership-carousel {
+    padding: 10px 0 38px;
+  }
+
+  .membership-viewport {
+    padding: 0 46px;
+  }
+
+  .membership-control-prev {
+    left: 10px;
+  }
+
+  .membership-control-next {
+    right: 10px;
+  }
+
   .officers-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -970,6 +1177,32 @@ a {
   .mission-grid {
     grid-template-columns: minmax(0, 1fr);
     text-align: left;
+  }
+
+  .membership {
+    padding: 60px 0 80px;
+  }
+
+  .membership-card {
+    flex-basis: min(320px, 80vw);
+  }
+
+  .membership-carousel {
+    padding: 10px 0 36px;
+  }
+
+  .membership-viewport {
+    padding: 0 38px;
+  }
+
+  .membership-control {
+    width: 38px;
+    height: 38px;
+  }
+
+  .membership-control svg {
+    width: 18px;
+    height: 18px;
   }
 
   .officers {
