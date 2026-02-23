@@ -122,8 +122,22 @@ export default function Membership() {
     const target = cardRefs.current[activeIndex];
     if (!target || !cardsVisible) return;
 
+    const viewport = carouselRef.current;
     const behavior = isJumping.current ? "auto" : "smooth";
-    target.scrollIntoView({ behavior, inline: "center", block: "nearest" });
+
+    if (viewport && behavior === "auto") {
+      const prevBehavior = viewport.style.scrollBehavior;
+      const prevSnap = viewport.style.scrollSnapType;
+      viewport.style.scrollBehavior = "auto";
+      viewport.style.scrollSnapType = "none";
+      target.scrollIntoView({ behavior: "auto", inline: "center", block: "nearest" });
+      window.requestAnimationFrame(() => {
+        viewport.style.scrollBehavior = prevBehavior;
+        viewport.style.scrollSnapType = prevSnap;
+      });
+    } else {
+      target.scrollIntoView({ behavior, inline: "center", block: "nearest" });
+    }
 
     if (activeIndex === 0 || activeIndex === total + 1) {
       const nextIndex = activeIndex === 0 ? total : 1;
