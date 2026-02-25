@@ -1,0 +1,126 @@
+"use client";
+
+import { useState } from "react";
+import Button from "../components/ui/Button";
+import { supabase } from "../../lib/supabaseClient";
+
+type StatusType = "idle" | "loading" | "success" | "error";
+
+type FindResult = {
+  memberId: string | null;
+  message: string;
+  status: StatusType;
+};
+
+export default function FindIdPage() {
+  const [email, setEmail] = useState("");
+  const [result, setResult] = useState<FindResult>({
+    memberId: null,
+    message: "",
+    status: "idle",
+  });
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const trimmedEmail = email.trim().toLowerCase();
+
+    if (!trimmedEmail) {
+      setResult({
+        memberId: null,
+        message: "Please enter the email you used to register.",
+        status: "error",
+      });
+      return;
+    }
+
+    setResult({ memberId: null, message: "Looking up your member ID...", status: "loading" });
+
+    const { data, error } = await supabase
+      .from("members")
+      .select("member_id")
+      .eq("email", trimmedEmail)
+      .maybeSingle();
+
+    if (error) {
+      setResult({
+        memberId: null,
+        message: "We couldn't complete that lookup. Please try again in a moment.",
+        status: "error",
+      });
+      return;
+    }
+
+    if (!data?.member_id) {
+      setResult({
+        memberId: null,
+        message: "No match yet. Double-check the email address and try again.",
+        status: "error",
+      });
+      return;
+    }
+
+    setResult({
+      memberId: data.member_id,
+      message: "Success! Your member ID is ready.",
+      status: "success",
+    });
+  };
+
+  return (
+    <main className="find-id">
+      <div className="find-id-shell">
+        <header className="find-id-header">
+          <div>
+            <p className="find-id-eyebrow">CNCP MEMBER SERVICES</p>
+            <h1>Find your member ID</h1>
+            <p>
+              Enter the email you used when you joined. We&apos;ll match it to your CNCP
+              membership record and show your ID.
+            </p>
+          </div>
+          <Button href="/" variant="secondary">
+            Back to Home
+          </Button>
+        </header>
+
+        <section className="find-id-card" aria-live="polite">
+          <form className="find-id-form" onSubmit={handleSubmit}>
+            <label className="find-id-label" htmlFor="member-email">
+              Email address
+            </label>
+            <input
+              id="member-email"
+              type="email"
+              name="email"
+              placeholder="name@school.edu"
+              autoComplete="email"
+              className="find-id-input"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              required
+            />
+
+            <Button type="submit">Find my ID</Button>
+          </form>
+
+          {result.status !== "idle" && (
+            <div className={`find-id-status status-${result.status}`} role="status">
+              <p>{result.message}</p>
+              {result.memberId && (
+                <div className="find-id-result">
+                  <span>Member ID</span>
+                  <strong>{result.memberId}</strong>
+                </div>
+              )}
+            </div>
+          )}
+
+          <p className="find-id-note">
+            If you still need help, contact the CNCP officers and we&apos;ll assist you with
+            verification.
+          </p>
+        </section>
+      </div>
+    </main>
+  );
+}
