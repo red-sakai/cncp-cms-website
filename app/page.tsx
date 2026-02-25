@@ -205,7 +205,9 @@ export default function Home() {
                 </a>
               </div>
               <div className="nav-cta">
-                <Button variant="secondary">Find Your ID</Button>
+                <Button href="/find-id" variant="secondary">
+                  Find Your ID
+                </Button>
                 <Button>Join Now</Button>
               </div>
             </div>
