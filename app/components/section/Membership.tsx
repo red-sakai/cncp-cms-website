@@ -171,9 +171,7 @@ export default function Membership() {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
-            <div className="relative h-[360px] overflow-hidden rounded-[32px] border border-[rgba(198,228,255,0.18)] bg-[radial-gradient(circle_at_top,rgba(119,211,255,0.24),transparent_36%),linear-gradient(150deg,rgba(20,46,94,0.78),rgba(6,18,44,0.92))] shadow-[0_28px_80px_rgba(7,26,90,0.45)] sm:h-[420px] md:h-[500px]">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(119,211,255,0.16),transparent_24%),radial-gradient(circle_at_80%_80%,rgba(43,123,255,0.2),transparent_24%)]" />
-
+            <div className="relative h-[360px] overflow-visible sm:h-[420px] md:h-[500px]">
               <div className="absolute inset-0 flex items-center justify-center">
                 {DEPARTMENTS.map((department, index) => {
                   const pos = getPosition(index);
