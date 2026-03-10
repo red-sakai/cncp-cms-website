@@ -6,6 +6,7 @@ import Lenis from "lenis";
 import { useEffect, useState } from "react";
 import Hero from "./components/section/Hero";
 import AboutUs from "./components/section/AboutUs";
+import Events from "./components/section/Events";
 import MissionVision from "./components/section/MissionVision";
 import Officers from "./components/section/Officers";
 import Membership from "./components/section/Membership";
@@ -217,6 +218,7 @@ export default function Home() {
           <AboutUs />
           <MissionVision />
           <Officers />
+          <Events />
           <Membership />
         </div>
       </main>
