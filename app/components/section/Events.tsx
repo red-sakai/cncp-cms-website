@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+
+const TRANSITION_DURATION = 900;
 
 const EVENTS = [
   {
@@ -43,29 +45,76 @@ const EVENTS = [
 export default function Events() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+  const timersRef = useRef<number[]>([]);
+  const total = EVENTS.length;
 
   useEffect(() => {
-    if (isPaused) {
+    return () => {
+      timersRef.current.forEach((timer) => window.clearTimeout(timer));
+      timersRef.current = [];
+    };
+  }, []);
+
+  const queueTimer = (callback: () => void, delay: number) => {
+    const timer = window.setTimeout(() => {
+      timersRef.current = timersRef.current.filter((id) => id !== timer);
+      callback();
+    }, delay);
+
+    timersRef.current.push(timer);
+  };
+
+  const goTo = useCallback((index: number) => {
+    const nextIndex = (index + total) % total;
+
+    if (nextIndex === activeIndex || isAnimating) {
+      return;
+    }
+
+    timersRef.current.forEach((timer) => window.clearTimeout(timer));
+    timersRef.current = [];
+
+    setIsAnimating(true);
+    setActiveIndex(nextIndex);
+
+    queueTimer(() => {
+      setIsAnimating(false);
+    }, TRANSITION_DURATION);
+  }, [activeIndex, isAnimating, total]);
+
+  useEffect(() => {
+    if (isPaused || isAnimating) {
       return;
     }
 
     const timer = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % EVENTS.length);
+      goTo(activeIndex + 1);
     }, 5500);
 
     return () => {
       window.clearInterval(timer);
     };
-  }, [isPaused]);
-
-  const goTo = (index: number) => {
-    setActiveIndex((index + EVENTS.length) % EVENTS.length);
-  };
+  }, [activeIndex, goTo, isAnimating, isPaused]);
 
   const next = () => goTo(activeIndex + 1);
   const previous = () => goTo(activeIndex - 1);
+
+  const getOffset = (index: number) => {
+    const rawOffset = index - activeIndex;
+
+    if (rawOffset > total / 2) {
+      return rawOffset - total;
+    }
+
+    if (rawOffset < -total / 2) {
+      return rawOffset + total;
+    }
+
+    return rawOffset;
+  };
 
   const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
     touchStartX.current = event.targetTouches[0].clientX;
@@ -91,127 +140,102 @@ export default function Events() {
     previous();
   };
 
-  const activeEvent = EVENTS[activeIndex];
-
   return (
     <section className="events" id="insights">
       <div className="events-inner">
         <div className="events-header">
           <span className="eyebrow">Events</span>
-          <h2>Explore CNCP moments through a clickable event reel.</h2>
+          <h2>Browse CNCP moments in a continuous 3D event carousel.</h2>
           <p>
-            Each image opens its matching event story, so visitors can browse the gallery
-            and immediately read what happened in that specific session.
+            The gallery keeps the same previous and next browsing flow, but now each stop
+            glides into a layered stage that keeps the section feeling more immersive.
           </p>
         </div>
 
-        <div className="events-layout">
-          <div
-            className="events-stage"
-            role="region"
-            aria-label="CNCP events slideshow"
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-            onFocus={() => setIsPaused(true)}
-            onBlur={() => setIsPaused(false)}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-          >
-            <div className="events-stage-frame">
-              <div
-                className="events-track"
-                style={{ transform: `translateX(-${activeIndex * 100}%)` }}
-              >
-                {EVENTS.map((event) => (
-                  <article className="events-slide" key={event.title} aria-hidden={event.title !== activeEvent.title}>
-                    <div className="events-slide-media">
-                      <Image
-                        src={event.image}
-                        alt={event.imageAlt}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 58vw"
-                        className="events-slide-image"
-                      />
-                      <div className="events-slide-overlay" />
-                      <div className="events-slide-copy">
-                        <span>{event.label}</span>
-                        <h3>{event.title}</h3>
-                        <p>{event.location}</p>
-                      </div>
-                    </div>
-                  </article>
-                ))}
-              </div>
+        <div className="events-showcase">
+          <div className="events-showcase-grid">
+            <div
+              className="events-stage"
+              role="region"
+              aria-label="CNCP events carousel"
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+              onFocus={() => setIsPaused(true)}
+              onBlur={() => setIsPaused(false)}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
+              <div className="events-stage-halo" aria-hidden="true" />
+              <div className="events-carousel">
+                {EVENTS.map((event, index) => {
+                  const offset = getOffset(index);
+                  const distance = Math.abs(offset);
+                  const isVisible = distance <= 2;
+                  const translateX = `${offset * 36}%`;
+                  const rotateY = `${offset * -24}deg`;
+                  const scale = Math.max(0.7, 1 - distance * 0.18);
+                  const opacity = Math.max(0, 1 - distance * 0.33);
+                  const blur = distance === 0 ? "0px" : `${distance * 1.6}px`;
 
-              <div className="events-stage-controls">
-                <button type="button" className="events-nav-button" onClick={previous} aria-label="Show previous event">
-                  <FiChevronLeft />
-                </button>
-                <button type="button" className="events-nav-button" onClick={next} aria-label="Show next event">
-                  <FiChevronRight />
-                </button>
+                  return (
+                    <button
+                      key={event.title}
+                      type="button"
+                      className={`events-card${index === activeIndex ? " is-active" : ""}`}
+                      onClick={() => goTo(index)}
+                      aria-pressed={index === activeIndex}
+                      aria-label={`Show ${event.title}`}
+                      style={{
+                        transform: `translateX(${translateX}) translateZ(${distance === 0 ? 0 : -distance * 120}px) rotateY(${rotateY}) scale(${scale})`,
+                        opacity,
+                        filter: `blur(${blur}) saturate(${distance === 0 ? 1 : 0.85})`,
+                        zIndex: total - distance,
+                        pointerEvents: isVisible ? "auto" : "none",
+                      }}
+                    >
+                      <span className="events-card-media">
+                        <Image
+                          src={event.image}
+                          alt={event.imageAlt}
+                          fill
+                          sizes="(max-width: 768px) 72vw, (max-width: 1200px) 46vw, 360px"
+                          className="events-card-image"
+                        />
+                        <span className="events-card-overlay" />
+                      </span>
+                      <span className="events-card-copy">
+                        <span className="events-card-label">{event.label}</span>
+                        <strong>{event.title}</strong>
+                        <span>{event.location}</span>
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
-            <div className="events-thumbnail-row" aria-label="Choose an event">
-              {EVENTS.map((event, index) => (
-                <button
-                  key={event.title}
-                  type="button"
-                  className={`events-thumbnail${index === activeIndex ? " is-active" : ""}`}
-                  onClick={() => goTo(index)}
-                  aria-pressed={index === activeIndex}
-                >
-                  <span className="events-thumbnail-image-wrap">
-                    <Image
-                      src={event.image}
-                      alt={event.imageAlt}
-                      fill
-                      sizes="(max-width: 768px) 33vw, 180px"
-                      className="events-thumbnail-image"
-                    />
-                  </span>
-                  <span className="events-thumbnail-copy">
-                    <strong>{event.title}</strong>
-                    <span>{event.date}</span>
-                  </span>
-                </button>
-              ))}
+            <div className="events-stage-controls">
+              <button
+                type="button"
+                className="events-nav-button"
+                onClick={previous}
+                aria-label="Show previous event"
+                disabled={isAnimating}
+              >
+                <FiChevronLeft />
+              </button>
+              <button
+                type="button"
+                className="events-nav-button"
+                onClick={next}
+                aria-label="Show next event"
+                disabled={isAnimating}
+              >
+                <FiChevronRight />
+              </button>
             </div>
           </div>
-
-          <aside className="events-panel" aria-live="polite">
-            <div className="events-panel-label">Selected Event</div>
-            <h3>{activeEvent.title}</h3>
-            <div className="events-meta">
-              <span>{activeEvent.date}</span>
-              <span>{activeEvent.location}</span>
-            </div>
-            <p>{activeEvent.description}</p>
-
-            <div className="events-highlight-list">
-              {activeEvent.highlights.map((highlight) => (
-                <span key={highlight} className="events-highlight-pill">
-                  {highlight}
-                </span>
-              ))}
-            </div>
-
-            <div className="events-counter">
-              <span>
-                {String(activeIndex + 1).padStart(2, "0")} / {String(EVENTS.length).padStart(2, "0")}
-              </span>
-              <div className="events-dots" aria-hidden="true">
-                {EVENTS.map((event, index) => (
-                  <span
-                    key={event.title}
-                    className={`events-dot${index === activeIndex ? " is-active" : ""}`}
-                  />
-                ))}
-              </div>
-            </div>
-          </aside>
         </div>
       </div>
     </section>
