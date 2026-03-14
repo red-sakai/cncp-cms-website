@@ -6,6 +6,11 @@ import AboutCard from "../ui/AboutCard";
 export default function AboutUs() {
   return (
     <section className="about" id="solutions">
+      <div className="about-bg" aria-hidden="true">
+        <span className="about-layer about-base" />
+        <span className="about-layer about-city" />
+        <span className="about-layer about-bushes" />
+      </div>
       <div className="about-inner">
         <div className="about-header">
           <span className="eyebrow">About Us</span>
