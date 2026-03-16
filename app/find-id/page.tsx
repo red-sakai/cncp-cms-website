@@ -69,8 +69,8 @@ export default function FindIdPage() {
   return (
     <main className="find-id">
       <div className="find-id-shell">
-        <header className="find-id-header">
-          <div>
+        <header className="find-id-hero">
+          <div className="find-id-hero-copy">
             <p className="find-id-eyebrow">CNCP MEMBER SERVICES</p>
             <h1>Find your member ID</h1>
             <p>
@@ -83,13 +83,31 @@ export default function FindIdPage() {
               <span>Officer verified</span>
             </div>
           </div>
-          <Button href="/" variant="secondary">
-            Back to Home
-          </Button>
+
+          <div className="find-id-hero-meta">
+            <div className="find-id-metric-grid" aria-hidden="true">
+              <div className="find-id-metric">
+                <strong>24/7</strong>
+                <span>Self-serve access</span>
+              </div>
+              <div className="find-id-metric">
+                <strong>&lt; 10s</strong>
+                <span>Typical lookup time</span>
+              </div>
+            </div>
+            <Button href="/" variant="secondary">
+              Back to Home
+            </Button>
+          </div>
         </header>
 
         <section className="find-id-grid">
-          <div className="find-id-card" aria-live="polite">
+          <article className="find-id-card" aria-live="polite">
+            <div className="find-id-card-heading">
+              <h2>Member ID lookup</h2>
+              <p>Use your registered email to retrieve your CNCP membership ID.</p>
+            </div>
+
             <form className="find-id-form" onSubmit={handleSubmit}>
               <label className="find-id-label" htmlFor="member-email">
                 Email address
@@ -121,11 +139,11 @@ export default function FindIdPage() {
               </div>
             )}
 
-            <p className="find-id-note">
+            <p className="find-id-note" role="note">
               If you still need help, contact the CNCP officers and we&apos;ll assist you with
               verification.
             </p>
-          </div>
+          </article>
 
           <aside className="find-id-aside">
             <div className="find-id-panel">
@@ -158,6 +176,9 @@ export default function FindIdPage() {
             <div className="find-id-panel find-id-support">
               <h2>Need help?</h2>
               <p>Officers can verify your membership if the email has changed.</p>
+              <div className="find-id-support-strip">
+                For privacy, only your own registered email can reveal your member ID.
+              </div>
               <div className="find-id-support-actions">
                 <Button href="/#officers" variant="secondary">
                   Meet officers

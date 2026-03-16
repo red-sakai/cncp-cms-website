@@ -1407,7 +1407,7 @@ a {
 
 .find-id {
   min-height: 100vh;
-  padding: 140px 24px 80px;
+  padding: 132px 24px 96px;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -1417,9 +1417,9 @@ a {
 
 .find-id-shell {
   width: 100%;
-  max-width: 960px;
+  max-width: 1040px;
   display: grid;
-  gap: 32px;
+  gap: 28px;
   position: relative;
 }
 
@@ -1436,68 +1436,128 @@ a {
 }
 
 .find-id-shell::before {
-  top: -90px;
-  right: 40px;
-  background: radial-gradient(circle at 30% 30%, rgba(86, 160, 255, 0.4), transparent 65%);
+  top: -110px;
+  right: -10px;
+  background: radial-gradient(circle at 30% 30%, rgba(86, 160, 255, 0.44), transparent 65%);
 }
 
 .find-id-shell::after {
-  bottom: -120px;
-  left: -40px;
-  background: radial-gradient(circle at 60% 40%, rgba(119, 211, 255, 0.32), transparent 70%);
+  bottom: -150px;
+  left: -50px;
+  background: radial-gradient(circle at 60% 40%, rgba(119, 211, 255, 0.36), transparent 70%);
 }
 
-.find-id-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 24px;
-  flex-wrap: wrap;
+.find-id-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 26px;
+  align-items: end;
+  padding: 28px;
+  border-radius: 26px;
+  border: 1px solid rgba(120, 170, 255, 0.28);
+  background:
+    radial-gradient(500px 240px at 90% 0%, rgba(86, 160, 255, 0.16), transparent 70%),
+    linear-gradient(160deg, rgba(11, 35, 79, 0.9), rgba(6, 18, 44, 0.94));
+  box-shadow: 0 28px 80px rgba(7, 29, 84, 0.34);
   position: relative;
+  overflow: hidden;
   z-index: 1;
 }
 
-.find-id-header h1 {
-  margin: 0 0 12px;
-  font-size: clamp(2rem, 3.4vw, 3rem);
+.find-id-hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(119, 211, 255, 0.4), rgba(119, 211, 255, 0));
+  pointer-events: none;
 }
 
-.find-id-header p {
+.find-id-hero-copy {
+  display: grid;
+  gap: 14px;
+}
+
+.find-id-hero-copy h1 {
   margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(2.05rem, 4.4vw, 3.4rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.find-id-hero-copy p {
+  margin: 0;
+  max-width: 640px;
   color: var(--text-300);
-  max-width: 580px;
+}
+
+.find-id-hero-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+  min-width: 250px;
+}
+
+.find-id-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.find-id-metric {
+  display: grid;
+  gap: 2px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(5, 18, 40, 0.65);
+  border: 1px solid rgba(120, 170, 255, 0.24);
+}
+
+.find-id-metric strong {
+  font-size: 1.05rem;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+}
+
+.find-id-metric span {
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: rgba(233, 243, 255, 0.75);
+}
+
+.find-id-eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--cyan-300);
 }
 
 .find-id-badges {
-  margin-top: 18px;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
 .find-id-badges span {
-  padding: 6px 14px;
+  padding: 7px 14px;
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: 0.73rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-100);
-  background: rgba(5, 18, 40, 0.6);
-  border: 1px solid rgba(119, 211, 255, 0.35);
-  box-shadow: 0 12px 30px rgba(7, 30, 90, 0.25);
-}
-
-.find-id-eyebrow {
-  font-size: 0.75rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  margin: 0 0 10px;
-  color: var(--cyan-300);
+  background: linear-gradient(150deg, rgba(6, 18, 44, 0.75), rgba(10, 34, 74, 0.72));
+  border: 1px solid rgba(119, 211, 255, 0.36);
 }
 
 .find-id-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
   gap: 24px;
   position: relative;
   z-index: 1;
@@ -1506,32 +1566,53 @@ a {
 .find-id-card {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(160deg, rgba(12, 38, 92, 0.92), rgba(6, 18, 44, 0.98));
+  background:
+    linear-gradient(145deg, rgba(10, 33, 78, 0.93), rgba(6, 18, 44, 0.98));
   border-radius: 26px;
   border: 1px solid rgba(120, 170, 255, 0.32);
-  box-shadow: 0 35px 90px rgba(8, 32, 90, 0.5);
+  box-shadow: 0 35px 90px rgba(8, 32, 90, 0.42);
   padding: 30px;
   display: grid;
-  gap: 22px;
+  gap: 20px;
 }
 
 .find-id-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(420px 260px at 0% 0%, rgba(86, 160, 255, 0.22), transparent 70%);
-  opacity: 0.9;
+  background: radial-gradient(420px 260px at 0% 0%, rgba(86, 160, 255, 0.2), transparent 70%);
+  opacity: 0.88;
   pointer-events: none;
 }
 
 .find-id-card::after {
   content: "";
   position: absolute;
-  inset: 12px 12px auto 12px;
+  inset: 14px 14px auto 14px;
   height: 2px;
   border-radius: 999px;
-  background: linear-gradient(90deg, rgba(119, 211, 255, 0.5), transparent);
+  background: linear-gradient(90deg, rgba(119, 211, 255, 0.56), transparent);
   pointer-events: none;
+}
+
+.find-id-card-heading {
+  display: grid;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.find-id-card-heading h2 {
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+}
+
+.find-id-card-heading p {
+  margin: 0;
+  color: var(--text-300);
+  max-width: 45ch;
 }
 
 .find-id-form {
@@ -1542,36 +1623,37 @@ a {
 }
 
 .find-id-label {
-  font-size: 0.85rem;
+  font-size: 0.79rem;
   text-transform: uppercase;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   color: var(--text-300);
 }
 
 .find-id-input {
-  padding: 12px 16px;
-  border-radius: 14px;
-  border: 1px solid rgba(119, 211, 255, 0.35);
-  background: rgba(5, 16, 34, 0.7);
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(119, 211, 255, 0.32);
+  background: rgba(4, 14, 32, 0.76);
   color: var(--text-100);
-  font-size: 1rem;
+  font-size: 0.98rem;
   outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .find-id-input:focus {
-  border-color: rgba(119, 211, 255, 0.8);
-  box-shadow: 0 0 0 3px rgba(86, 160, 255, 0.2);
+  border-color: rgba(119, 211, 255, 0.72);
+  box-shadow: 0 0 0 3px rgba(86, 160, 255, 0.18);
+  transform: translateY(-1px);
 }
 
 .find-id-status {
-  border-radius: 16px;
-  padding: 16px;
+  border-radius: 14px;
+  padding: 16px 18px;
   display: grid;
-  gap: 12px;
-  background: rgba(6, 18, 44, 0.68);
-  border: 1px solid rgba(120, 170, 255, 0.3);
-  border-left: 3px solid rgba(119, 211, 255, 0.4);
+  gap: 10px;
+  background: rgba(5, 17, 40, 0.74);
+  border: 1px solid rgba(120, 170, 255, 0.32);
+  border-left: 4px solid rgba(119, 211, 255, 0.46);
   position: relative;
   z-index: 1;
 }
@@ -1601,22 +1683,30 @@ a {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 12px;
-  padding: 12px 16px;
+  gap: 14px;
+  padding: 12px 14px;
   border-radius: 12px;
-  background: rgba(29, 91, 255, 0.18);
+  background: linear-gradient(140deg, rgba(29, 91, 255, 0.22), rgba(86, 160, 255, 0.14));
   color: var(--text-100);
 }
 
+.find-id-result span {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.73rem;
+  color: rgba(233, 243, 255, 0.78);
+}
+
 .find-id-result strong {
-  font-size: 1.4rem;
-  letter-spacing: 0.08em;
+  font-size: 1.52rem;
+  letter-spacing: 0.09em;
+  font-family: "Rajdhani", sans-serif;
 }
 
 .find-id-note {
   margin: 0;
   color: var(--text-300);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   position: relative;
   z-index: 1;
 }
@@ -1627,18 +1717,19 @@ a {
 }
 
 .find-id-panel {
-  background: rgba(8, 24, 56, 0.75);
+  background: linear-gradient(160deg, rgba(8, 24, 56, 0.82), rgba(7, 21, 48, 0.78));
   border-radius: 22px;
-  border: 1px solid rgba(120, 170, 255, 0.28);
+  border: 1px solid rgba(120, 170, 255, 0.26);
   padding: 24px;
-  box-shadow: 0 24px 60px rgba(8, 30, 90, 0.35);
+  box-shadow: 0 22px 54px rgba(8, 30, 90, 0.3);
   display: grid;
   gap: 16px;
 }
 
 .find-id-panel h2 {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1.18rem;
+  font-family: "Space Grotesk", sans-serif;
 }
 
 .find-id-panel p {
@@ -1675,17 +1766,26 @@ a {
 
 .find-id-steps h3 {
   margin: 0 0 6px;
-  font-size: 0.95rem;
+  font-size: 0.94rem;
 }
 
 .find-id-steps p {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--text-300);
 }
 
 .find-id-support {
   background: linear-gradient(150deg, rgba(14, 42, 92, 0.95), rgba(6, 18, 44, 0.9));
+}
+
+.find-id-support-strip {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(5, 18, 40, 0.58);
+  border: 1px dashed rgba(119, 211, 255, 0.42);
+  font-size: 0.84rem;
+  color: rgba(233, 243, 255, 0.86);
 }
 
 .find-id-support-actions {
@@ -1694,17 +1794,47 @@ a {
   flex-wrap: wrap;
 }
 
-@media (max-width: 768px) {
-  .find-id {
-    padding-top: 120px;
+@media (max-width: 900px) {
+  .find-id-hero {
+    grid-template-columns: 1fr;
+    align-items: stretch;
   }
 
-  .find-id-header {
-    flex-direction: column;
-    align-items: flex-start;
+  .find-id-hero-meta {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .find-id {
+    padding: 116px 18px 72px;
+  }
+
+  .find-id-shell {
+    gap: 20px;
+  }
+
+  .find-id-hero {
+    padding: 22px;
+    border-radius: 20px;
+  }
+
+  .find-id-metric-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .find-id-card {
+    padding: 22px;
+    border-radius: 20px;
+  }
+
+  .find-id-panel {
+    border-radius: 18px;
+    padding: 20px;
   }
 
   .find-id-grid {
     grid-template-columns: 1fr;
+    gap: 18px;
   }
 }
