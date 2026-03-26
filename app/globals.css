@@ -1622,6 +1622,10 @@ a {
   z-index: 1;
 }
 
+.find-id-submit {
+  justify-self: start;
+}
+
 .find-id-label {
   font-size: 0.79rem;
   text-transform: uppercase;
@@ -1661,6 +1665,13 @@ a {
 .find-id-status p {
   margin: 0;
   color: var(--text-100);
+}
+
+.find-id-status-title {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(233, 243, 255, 0.86);
 }
 
 .status-loading {
@@ -1714,6 +1725,7 @@ a {
 .find-id-aside {
   display: grid;
   gap: 20px;
+  align-content: start;
 }
 
 .find-id-panel {
@@ -1730,6 +1742,7 @@ a {
   margin: 0;
   font-size: 1.18rem;
   font-family: "Space Grotesk", sans-serif;
+  letter-spacing: -0.01em;
 }
 
 .find-id-panel p {
@@ -1794,6 +1807,11 @@ a {
   flex-wrap: wrap;
 }
 
+.find-id-support-actions .btn {
+  flex: 1 1 auto;
+  text-align: center;
+}
+
 @media (max-width: 900px) {
   .find-id-hero {
     grid-template-columns: 1fr;
@@ -1828,6 +1846,12 @@ a {
     border-radius: 20px;
   }
 
+  .find-id-submit {
+    width: 100%;
+    justify-self: stretch;
+    text-align: center;
+  }
+
   .find-id-panel {
     border-radius: 18px;
     padding: 20px;
@@ -1836,5 +1860,10 @@ a {
   .find-id-grid {
     grid-template-columns: 1fr;
     gap: 18px;
+  }
+
+  .find-id-support-actions .btn {
+    width: 100%;
+    flex: 1 1 100%;
   }
 }
